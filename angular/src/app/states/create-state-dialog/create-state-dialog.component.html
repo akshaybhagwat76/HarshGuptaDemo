@@ -1,0 +1,35 @@
+<form class="form-horizontal" autocomplete="off" #creatStateForm="ngForm" (ngSubmit)="save()">
+    <abp-modal-header [title]="'CreateNewState' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body">
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="stateName">
+                {{ "StateName" | localize }}
+            </label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" name="stateName" id="stateName" minlength="2" maxlength="64"
+                    required [(ngModel)]="state.stateName" #stateNameModel="ngModel" #stateNameEl />
+                <abp-validation-summary [control]="stateNameModel" [controlEl]="stateNameEl">
+                </abp-validation-summary>
+            </div>
+        </div>
+
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="countryId">
+                {{ "Country" | localize }}
+            </label>
+            <div class="col-md-9">
+                <select [(ngModel)]="state.countryId" class="form-control" name="countryId" id="countryId" required>
+                    <option *ngFor="let country of countries" [value]="country.id">
+                        {{country.countryName}}
+                    </option>
+                </select>
+
+                <abp-validation-summary [control]="stateNameModel" [controlEl]="stateNameEl">
+                </abp-validation-summary>
+            </div>
+        </div>
+
+    </div>
+    <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="!creatStateForm.form.valid || saving"
+        (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>
